@@ -110,3 +110,76 @@ Box<T>* reverse(Box<T>* b) {
 
     return result;
 }
+
+template <typename T>
+bool inList(Box<T>* l, T x) {
+    return count(l, x) > 0;
+}
+
+template <typename T>
+bool duplicates(Box<T>* l) {
+    // Recursive implementation;
+    if (l == nullptr) {
+        return false;
+    }
+    
+    return inList(l->next, l->data) || duplicates(l->next);
+
+    // Imperative implementation:
+
+    // Box<T>* current = l;
+    // while (current != nullptr) {
+    //     if (count(current, current->data) != 1) {
+    //         return true;
+    //     }
+    //     current = current->next;
+    // }
+    // return false;
+}
+
+template <typename T>
+void removeDuplicates(Box<T>* l) {
+    if (l != nullptr) {
+        removeAll(l->next, l->data);
+        removeDuplicates(l->next);
+    }
+}
+
+template <typename T>
+bool isAscending(Box<T>* l) {
+    while (l != nullptr && l->next != nullptr) {
+        if (l->data >= l->next->data) {
+            return false;
+        }
+
+        l = l->next;
+    }
+
+    return true;
+}
+
+template <typename T>
+bool isSorted(Box<T>* l) {
+    // This creates a memory leak, but since the problem definitions
+    // aren't that concise I won't bother creating a memory cleanup function.
+    return isAscending(l) || isAscending(reverse(l));
+}
+
+template <typename T>
+bool equals(Box<T>* l1, Box<T>* l2) {
+    while (l1 != nullptr && l2 != nullptr) {
+        if (l1->data != l2->data) {
+            return false;
+        }
+
+        l1 = l1->next;
+        l2 = l2->next;
+    }
+
+    return l1 == nullptr && l2 == nullptr;
+}
+
+template <typename T>
+bool palindrome(Box<T>* l) {
+    return equals(l, reverse(l));
+}

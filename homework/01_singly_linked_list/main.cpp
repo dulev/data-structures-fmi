@@ -11,6 +11,10 @@ void testAppend();
 void testConcat();
 void testMap();
 void testReverse();
+void testDuplicates();
+void testRemoveDuplicates();
+void testIsSorted();
+void testPalindrome();
 
 int main() {
     // testCount();
@@ -20,6 +24,10 @@ int main() {
     // testConcat();
     // testMap();
     // testReverse();
+    // testDuplicates();
+    // testRemoveDuplicates();
+    // testIsSorted();
+    testPalindrome();
     
     return 0;
 }
@@ -77,4 +85,42 @@ void testMap() {
 void testReverse() {
     Box<int> *l = range(1, 3);
     print(reverse(l));
+}
+
+void testDuplicates() {
+    Box<int> *l1 = new Box<int>(1, range(1, 3));
+    Box<int> *l2 = range(1, 3);
+    print(l1);
+    std::cout << "Duplicates: " << (duplicates(l1) ? "true" : "false") << std::endl;
+    print(l2);
+    std::cout << "Duplicates: " << (duplicates(l2) ? "true" : "false") << std::endl;
+}
+
+void testRemoveDuplicates() {
+    Box<int> *l = new Box<int>(1, range(1, 3));
+    print(l);
+    removeDuplicates(l);
+    print(l);
+}
+
+void testIsSorted() {
+    Box<int> *l = range(1, 5);
+    Box<int> *rev = reverse(l);
+    Box<int> *no = new Box<int>(1, new Box<int>(1, nullptr));
+    print(l);
+    std::cout << "Is sorted: " << (isSorted(l) ? "true" : "false") << std::endl;
+    print(rev);
+    std::cout << "Is sorted: " << (isSorted(rev) ? "true" : "false") << std::endl;
+    print(no);
+    std::cout << "Is sorted: " << (isSorted(no) ? "true" : "false") << std::endl;
+}
+
+void testPalindrome() {
+    Box<int> *l1 = range(1, 3);
+    Box<int> *l2 = new Box<int>(1, new Box<int>(2, new Box<int>(1, nullptr)));
+
+    print(l1);
+    std::cout << "Is palindrome: " << (palindrome(l1) ? "true" : "false") << std::endl;
+    print(l2);
+    std::cout << "Is palindrome: " << (palindrome(l2) ? "true" : "false") << std::endl;
 }
